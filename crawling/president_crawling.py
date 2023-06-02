@@ -2,7 +2,6 @@ import httpx
 import json
 from bs4 import BeautifulSoup as bs
 from time import sleep
-from tqdm import tqdm
 
 def get_page_num(soup):
     pagination = soup.find_all('a', class_='article-above-pagination__item')
@@ -24,7 +23,7 @@ def get_article(url, texts, firts_page=False):
     return page_num
 
 if __name__ == '__main__':
-    for i in tqdm(range(9158, 21953)):
+    for i in range(1, 70165):
         url_base = f'https://president.jp/articles/-/{i}'
         texts = []
         try:
@@ -36,12 +35,12 @@ if __name__ == '__main__':
             try:
                 url = url_base + f'?page={n_page}'
                 _ = get_article(url, texts)
-            except: # 有料記事の場合はエラーになる（e.g. https://president.jp/articles/-/3902）
+            except: # 念の為例外処理したが、発生せず
                 print(f'{url} でエラー')
                 break
         
         output = {'text': ''.join(texts), 'url': url_base}
-        with open('president2.jsonl', 'a', encoding='utf-8') as file:
+        with open('president.jsonl', 'a', encoding='utf-8') as file:
             json.dump(output, file, ensure_ascii=False)
             file.write('\n')
         sleep(0.1)
