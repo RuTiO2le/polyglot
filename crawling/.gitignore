@@ -1,8 +1,8 @@
-#test.txt
-#president*.jsonl
-#./crawl
-#logs.txt
-#president_crawling*.py
+test.txt
+president*.jsonl
+./crawl
+logs.txt
+president_crawling*.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
