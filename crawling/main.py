@@ -31,7 +31,7 @@ if __name__ == '__main__':
     else:
         b = 0
 
-    # for i in tqdm(range(9158, 21953)):
+    # for i in tqdm(range(1,8)):
     for i in tqdm(range(i*10000+1, (i+1)*10000)):
         url_base = f'https://president.jp/articles/-/{i+1}'
         texts = []
@@ -49,7 +49,7 @@ if __name__ == '__main__':
                 break
         
         output = {'text': ''.join(texts), 'url': url_base}
-        with open('president2.jsonl', 'a', encoding='utf-8') as file:
+        with open(f'president{i}.jsonl', 'a', encoding='utf-8') as file:
             json.dump(output, file, ensure_ascii=False)
             file.write('\n')
         sleep(0.1)
