@@ -1,5 +1,6 @@
 import httpx
 import json
+import sys
 from bs4 import BeautifulSoup as bs
 from time import sleep
 from tqdm import tqdm
@@ -24,8 +25,15 @@ def get_article(url, texts, firts_page=False):
     return page_num
 
 if __name__ == '__main__':
-    for i in tqdm(range(9158, 21953)):
-        url_base = f'https://president.jp/articles/-/{i}'
+    args = sys.argv
+    if len(args)==2:
+        b = args[1]
+    else:
+        b = 0
+
+    # for i in tqdm(range(9158, 21953)):
+    for i in tqdm(range(i*10000+1, (i+1)*10000)):
+        url_base = f'https://president.jp/articles/-/{i+1}'
         texts = []
         try:
             page_num = get_article(url_base, texts, firts_page=True)
