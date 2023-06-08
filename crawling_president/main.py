@@ -31,8 +31,8 @@ if __name__ == '__main__':
     else:
         b = 0
 
-    for i in range(1,8):
-        print(f'{i*10000+1}to{(i+1)*10000}')
+    for i in range(1,8) if b==0 else range(b, b+1):
+        print(f'\n{i*10000+1}to{(i+1)*10000}\n')
         for j in tqdm(range(i*10000+1, (i+1)*10000)):
             url_base = f'https://president.jp/articles/-/{j}'
             texts = []
@@ -50,12 +50,10 @@ if __name__ == '__main__':
                     break
             
             output = {'text': ''.join(texts), 'url': url_base}
-            # with open(f'president{i}.jsonl', 'a', encoding='utf-8') as file:
-            #     json.dump(output, file, ensure_ascii=False)
-                # file.write('\n')
-            print(output)
+            with open(f'president{i}.jsonl', 'a', encoding='utf-8') as file:
+                json.dump(output, file, ensure_ascii=False)
+                file.write('\n')
             sleep(0.1)
-            break
 
 
 
