@@ -13,11 +13,15 @@ def get_article(url, texts, firts_page=False):
     with httpx.Client() as client:
         response = client.get(url)
     soup = bs(response.text, 'html.parser')
+
+    # Not very suitable as a method, but considering the simplicity of processing, 
+    # get the number of pages at the same time
     if firts_page:
         texts.append(soup.find('h1').text)
         page_num = get_page_num(soup)
     else:
         page_num = 0
+        
     conts = soup.find_all('p')
     for cont in conts[:-1]: # 最後は「© 2008-2023 PRESIDENT Inc. すべての画像・データについて無断転用・無断転載を禁じます。」
         texts.append(cont.text)
